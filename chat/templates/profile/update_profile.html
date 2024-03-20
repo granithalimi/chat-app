@@ -1,0 +1,61 @@
+{% extends 'layouts/app.html' %}
+
+{% block title%}Update{% endblock %}
+
+{% block header %}
+    <h3 class="text-center">Update Profile</h3>
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center">
+    <div class="card my-5">
+        <div class="card-body update-profile">
+            <form action="{% url 'update-profile' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.name.label }}
+                {{ form.name }}
+                {{ form.surname.label }}
+                {{ form.surname }}
+                {{ form.email.label }}
+                {{ form.email }}
+                {{ form.note.label }}
+                {{ form.note }}
+                {{ form.profile_pic.label }}
+                {{ form.profile_pic }}
+                <button type="submit" class="btn btn-sm btn-outline-primary">Update Profile</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block top-left %}
+    <form action="{% url "search-users" %}" method="POST" class="d-flex" role="search">
+        {% csrf_token %}
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
+        <button class="btn btn-sm btn-outline-secondary" type="submit">Search</button>
+    </form>
+{% endblock %}
+
+{% block left-side %}
+    <div class="friends-scroll container">
+        {% if direct_message_profile %}
+            {% for user in direct_message_profile %}
+                <a href="{% url 'direct-message' user=user.user.id %}" class="left-btns">
+                    <div class="friends-profile d-flex flex-row align-items-center container border border-dark-subtle rounded py-2 mb-3">
+                        <div class="image">
+                            {% if user.profile_pic %}
+                                <img src="{{ user.profile_pic.url }}" alt="profile" style="width: 30px; height: 30px; border-radius: 50%;">
+                            {% else %}
+                                <img src="../../media/default/default.jpg" alt="profile" style="width: 30px; height: 30px; border-radius: 50%;">
+                            {% endif %}
+                        </div>
+                        <p class="mb-0 ms-3">{{ user.name }}</p>
+                    </div>
+                </a>
+            {% endfor %}
+        {% else %}
+            <p>No messages yet...</p>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,101 @@
+h1, h4, h3{
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+}
+
+.content{
+    width: 60%;
+    background-color: #EEEEEE;
+}
+
+/* Scrollbar */
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+    background: white; 
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #898989; 
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+
+/* app */
+.left, .right{
+    width: 20%;
+    background-color: #e0dddd;
+    height: 100vh;
+}
+.header{
+    height: 60px;
+}
+.friends-scroll{
+    overflow-y: auto;
+    height: 200px;
+}
+.friends-profile{
+    text-decoration: none;
+    color: black;
+}
+.servers-scroll{
+    overflow-y: auto;
+    height: 200px;
+}
+.header{
+    background-color: #e0dddd;
+}
+.profile{
+    height: 75px;
+    width: 100%;
+}
+.left-btns{
+    text-decoration: none;
+    color: black;
+}
+.left-btns .friends-profile:hover{
+    background-color: #898989;
+    transition: all .3s;
+}
+.right-btns{
+    text-decoration: none;
+    color: black;
+}
+.navigate .card:hover{
+    background-color: #898989;
+    color: white;
+    transition: all .5s;
+}
+.left .top{
+    height: 60px;   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* FRIENDS */
+.friends .friends-profile:hover{
+    background-color: #898989;
+    transition: all .3s;
+}
+
+/* PROFILE */
+.update-profile input{
+    width: 100%;
+    display: block;
+    margin: 0 0 20px 0;
+}
+.update-profile label{
+    width: 100%;
+    display: block;
+}
+#profile_pic-clear_id{
+    margin: 0 auto 0 0;  
+}

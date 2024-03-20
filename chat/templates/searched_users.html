@@ -1,0 +1,82 @@
+{% extends 'layouts/app.html' %}
+
+{% block title %}Discord{% endblock %}
+
+{% block header %}
+    <div class="border-dark border-end pe-2 d-flex">
+        <div class="d-flex align-items-center ms-4">
+            <h4 class="mb-0"><i class="bi bi-people "></i></h4>
+        </div>
+        <h4 class="mb-0 ms-2">Friends</h4>
+    </div>
+    <a href="{% url "index" %}" class="btn btn-sm btn-secondary ms-2 mb-0">All</a>
+    <a href="{% url "pending" %}" class="btn btn-sm btn-secondary ms-2 mb-0">Pending</a>
+{% endblock %}
+
+{% block content %}
+    {% if searched_users %}
+        <div class="w-100 mt-5 d-flex flex-column align-items-center">
+            {% for user in searched_users %}
+                <div class="d-flex justify-content-between align-items-center w-75 p-3 border rounded mb-3">
+                    <div class="info d-flex w-50">
+                        <div class="img">
+                            {% if user.profile_pic %}
+                                <img src="{{ user.profile_pic.url }}" alt="profile_pic" style="width: 53px; border-radius: 50%; height: 53px;">
+                            {% else %}
+                                <img src="../../media/default/default.jpg" alt="profile_pic" style="width: 53px; border-radius: 50%; height: 53px;">
+                            {% endif %}
+                        </div>
+                        <div class="full-name ms-2">
+                            <p class="mb-0" style="color: rgb(100, 100, 100); font-size: 16px;"><b>{{ user.name }}</b></p>
+                            <p class="mb-0" style="color: rgb(100, 100, 100); font-size: 12px;">{{ user.email }}</p>
+                        </div>
+                        <p>{{ user.username }}</p>
+                    </div>
+                    <div class="btns d-flex flex-column">
+                        <a href="handle-friend-request/{{user.user.id}}/" class="btn btn-sm btn-success mb-1">Add Friend</a>
+                        <a href="{% url 'direct-message' user=user.user.id %}" class="btn btn-sm btn-secondary">Send Message</a>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+    {% else %}
+        <p>No users with that Name...</p>
+    {% endif %}
+{% endblock %}
+
+{% block left-side %}
+    <div class="friends-scroll container">
+        {% if direct_message_profile %}
+            {% for user in direct_message_profile %}
+                <a href="{% url 'direct-message' user=user.user.id %}" class="left-btns">
+                    <div class="friends-profile d-flex flex-row align-items-center container border border-dark-subtle rounded py-2 mb-3">
+                        <div class="image">
+                            {% if user.profile_pic %}
+                                <img src="{{ user.profile_pic.url }}" alt="profile" style="width: 30px; height: 30px; border-radius: 50%;">
+                            {% else %}
+                                <img src="../../media/default/default.jpg" alt="profile" style="width: 30px; height: 30px; border-radius: 50%;">
+                            {% endif %}
+                        </div>
+                        <p class="mb-0 ms-3">{{ user.name }}</p>
+                    </div>
+                </a>
+            {% endfor %}
+        {% else %}
+            <p>No messages yet...</p>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block bottom-left %}
+    <div class="servers-scroll">
+    </div>
+{% endblock %}
+
+{% block top-left %}
+    <form action="{% url "search-users" %}" method="POST" class="d-flex" role="search">
+        {% csrf_token %}
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
+        <button class="btn btn-sm btn-outline-secondary" type="submit">Search</button>
+    </form>
+{% endblock %}
